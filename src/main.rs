@@ -29,10 +29,10 @@ fn main() {
 }
 
 fn save_matrix((red, green, blue): (u8, u8, u8), matrix: [[u8; 7]; 7], name: &String) {
-    let mut img: RgbImage = ImageBuffer::new(700, 700);
+    let mut img: RgbImage = ImageBuffer::new(350, 350);
     let path = "./".to_owned() + name as &str + ".png";
 
-    let background = image::Rgb([190, 190, 190]);
+    let background = image::Rgb([250, 250, 250]);
     let color = image::Rgb([red, green, blue]);
 
     for (x, y, pixel) in img.enumerate_pixels_mut() {
@@ -58,7 +58,7 @@ fn print_matrix((red, green, blue): (u8, u8, u8), matrix: [[u8; 7]; 7]) {
             } else {
                 print!(
                     "{color}██{reset}",
-                    color = color::Fg(color::Rgb(190, 190, 190)),
+                    color = color::Fg(color::Rgb(250, 250, 250)),
                     reset = color::Fg(color::Reset),
                 );
             }
@@ -97,8 +97,8 @@ fn get_index(index: usize) -> (usize, usize) {
 }
 
 fn check_index((x, y): (u32, u32), matrix: [[u8; 7]; 7]) -> bool {
-    let dx = usize::try_from(x / 100).unwrap();
-    let dy = usize::try_from(y / 100).unwrap();
+    let dx = usize::try_from(x / 50).unwrap();
+    let dy = usize::try_from(y / 50).unwrap();
 
     return matrix[dy][dx] == 1
 }
