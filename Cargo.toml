@@ -1,10 +1,9 @@
 [package]
-name = "rust-identicons"
+name = "identicon"
 version = "0.1.0"
 authors = ["Iakov Salikov <salikovpro@gmail.com>"]
 edition = "2018"
 
 [dependencies]
-digest = { version = "0.8.1", features = ["std"] }
-image = { version = "0.23.3", default-features = false, features = ["png"] }
-md-5 = { version = "0.8.0", features = ["asm"] }
+md-5 = "0.9.1"
+termion = "1"

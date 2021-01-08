@@ -1,7 +1,7 @@
 run: src/main.rs
-	cargo run
+	cargo run test
 
 
 build: src/main.rs
 	cargo build --release -q
-	chmod a+x ./target/release/identicons
+	chmod a+x ./target/release/identicon
