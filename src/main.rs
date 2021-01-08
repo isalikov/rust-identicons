@@ -1,13 +1,13 @@
-extern crate termion;
 extern crate image;
+extern crate termion;
 
 use std::env;
 use std::io;
 use std::process;
-use std::convert::TryFrom;
 
 use image::{ImageBuffer, RgbImage};
 use md5::{Md5, Digest};
+use std::convert::TryFrom;
 use termion::{color};
 
 const USAGE: &str = "Usage error: \n Set string argument! \n\nidenticon test_string";
@@ -18,8 +18,8 @@ fn main() {
             let hash = get_hash(&value);
             let matrix = get_matrix(&hash);
 
-            print_matrix((hash[0], hash[1], hash[2]), matrix);
-            save_matrix((hash[0], hash[1], hash[2]), matrix, &value);
+            print_matrix((hash[0], hash[10], hash[7]), matrix);
+            save_matrix((hash[0], hash[10], hash[7]), matrix, &value);
         }
 
         Err(error) => {
@@ -111,7 +111,6 @@ fn get_hash(source: &String) -> [u8; 16] {
 
     let mut bytes = [0; 16];
     bytes.copy_from_slice(&result);
-
 
     bytes
 }
