@@ -7,6 +7,9 @@ Github identicons generator
 
 ### Installation
 ```bash
+git clone https://github.com/isalikov/rust-identicons.git ~/.identicons
+cd ~/.identicons
+
 make .
 make install
 ```
