@@ -1,5 +1,4 @@
 extern crate image;
-extern crate termion;
 
 use std::env;
 use std::io;
@@ -8,9 +7,8 @@ use std::process;
 use image::{ImageBuffer, RgbImage};
 use md5::{Md5, Digest};
 use std::convert::TryFrom;
-use termion::{color};
 
-const USAGE: &str = "Usage error: \n Set string argument! \n\nidenticon test_string";
+const USAGE: &str = "Usage error: Set string argument!";
 
 fn main() {
     match get_source() {
@@ -18,8 +16,7 @@ fn main() {
             let hash = get_hash(&value);
             let matrix = get_matrix(&hash);
 
-            print_matrix((hash[0], hash[10], hash[7]), matrix);
-            save_matrix((hash[0], hash[10], hash[7]), matrix, &value);
+            save_matrix((hash[0], hash[1], hash[2]), matrix, &value);
         }
 
         Err(error) => {
@@ -46,45 +43,23 @@ fn save_matrix((red, green, blue): (u8, u8, u8), matrix: [[u8; 7]; 7], name: &St
     img.save(path).unwrap();
 }
 
-fn print_matrix((red, green, blue): (u8, u8, u8), matrix: [[u8; 7]; 7]) {
-    for row in matrix.iter() {
-        for cell in row.iter() {
-            if *cell > 0 {
-                print!(
-                    "{color}██{reset}",
-                    color = color::Fg(color::Rgb(red, green, blue)),
-                    reset = color::Fg(color::Reset),
-                );
-            } else {
-                print!(
-                    "{color}██{reset}",
-                    color = color::Fg(color::Rgb(250, 250, 250)),
-                    reset = color::Fg(color::Reset),
-                );
-            }
-        }
-
-        print!("\n");
-    }
-}
-
 fn get_matrix(hash: &[u8]) -> [[u8; 7]; 7] {
     let mut matrix = [[0; 7]; 7];
 
     for index in 0..=14 {
         let (row, col) = get_index(index);
 
-        matrix[row][col] = hash[index] % 2
+        matrix[row][col] = hash[index] % 2;
     }
 
     for row in 1..=5 {
         for col in 4..=5 {
             if col == 4 {
-                matrix[row][col] = matrix[row][2]
+                matrix[row][col] = matrix[row][2];
             }
 
             if col == 5 {
-                matrix[row][col] = matrix[row][1]
+                matrix[row][col] = matrix[row][1];
             }
         }
     }
@@ -100,7 +75,7 @@ fn check_index((x, y): (u32, u32), matrix: [[u8; 7]; 7]) -> bool {
     let dx = usize::try_from(x / 50).unwrap();
     let dy = usize::try_from(y / 50).unwrap();
 
-    return matrix[dy][dx] == 1
+    matrix[dy][dx] == 1
 }
 
 fn get_hash(source: &String) -> [u8; 16] {
@@ -124,5 +99,6 @@ fn get_source() -> io::Result<String> {
     }
 
     let result = &args[1];
+
     Ok(result.to_string())
 }
